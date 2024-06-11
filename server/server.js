@@ -10,7 +10,12 @@ require('dotenv').config();
 const app = express();
 app.use(express.json());
 app.use((req, res, next) => {
-  const allowedOrigins = ['https://agricrowd-1709931956899.oa.r.appspot.com','http://localhost:3000'];
+  const allowedOrigins = [
+    'https://agricrowd-1709931956899.oa.r.appspot.com',
+    'http://localhost:3000',
+    'https://www.agricrowd.com.tr',
+    'https://agricrowd.com.tr'
+  ];
   const origin = req.headers.origin;
 
   if (allowedOrigins.includes(origin)) {
@@ -22,6 +27,7 @@ app.use((req, res, next) => {
 
   next();
 });
+
 
 
 mongoose.connect(process.env.MONGODB_URI, {

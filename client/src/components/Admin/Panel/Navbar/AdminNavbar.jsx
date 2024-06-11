@@ -61,7 +61,7 @@ function AdminNavBar() {
               Main Page
             </NavLink>
             <a
-                href='https://agricrowd-server.oa.r.appspot.com/api-docs/'
+                href='https://api.agricrowd.com.tr/api-docs/'
                 target='_blank'
                 rel='noopener noreferrer'
                 style={{

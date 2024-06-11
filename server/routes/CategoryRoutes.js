@@ -393,7 +393,7 @@ router.delete('/delete-sub-category/:subCategoryId', verifyAdminToken,async (req
 //fetch-both
 /**
  * @swagger
- * /fetch-both:
+ * api/categories/fetch-both:
  *   get:
  *     summary: Fetch both main and sub categories
  *     description: Retrieves all main categories along with their subcategories.

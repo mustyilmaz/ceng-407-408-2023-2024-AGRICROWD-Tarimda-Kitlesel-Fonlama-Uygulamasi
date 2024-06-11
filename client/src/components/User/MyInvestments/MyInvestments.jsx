@@ -23,11 +23,18 @@ const MyInvestments = () => {
         const accounts = await window.ethereum.request({
           method: "eth_accounts",
         });
-        const investor = accounts[0]; // Assuming only one account is connected
+        const investor = accounts[0];
 
         // Call smart contract function to fetch investments
         const investmentDetails = await contract.getInvestmentsByAddress(
           investor
+        );
+
+        // Fetch project statuses
+        const projectStatuses = await Promise.all(
+          investmentDetails[0].map((objectId) =>
+            contract.getProjectStatus(objectId)
+          )
         );
 
         // Format the investment details
@@ -38,7 +45,8 @@ const MyInvestments = () => {
               investmentDetails[1][index]
             ),
             rewardAmount: ethers.utils.formatEther(investmentDetails[2][index]),
-            projectName: investmentDetails[3][index], // Added project name
+            projectName: investmentDetails[3][index],
+            status: projectStatuses[index],
           })
         );
 
@@ -48,6 +56,19 @@ const MyInvestments = () => {
 
     fetchInvestments();
   }, []);
+
+  const getStatusStyleClass = (status) => {
+    switch (status) {
+      case "Fundraising":
+        return styles.statusFundraising;
+      case "Withdrawn":
+        return styles.statusWithdrawn;
+      case "Rewards Sent":
+        return styles.statusRewardsSent;
+      default:
+        return "";
+    }
+  };
 
   return (
     <div className={styles.homeContainer}>
@@ -64,8 +85,15 @@ const MyInvestments = () => {
       <div className={styles.investmentsContainer}>
         {investments.map((investment, index) => (
           <div key={index} className={styles.investmentItem}>
-            <p className={styles.projectName}>{investment.projectName}</p>{" "}
-            {/* Updated to display project name */}
+            <p className={styles.projectName}>{investment.projectName}</p>
+            <p
+              className={`${styles.projectStatus} ${getStatusStyleClass(
+                investment.status
+              )}`}
+            >
+              Status: {investment.status}
+            </p>{" "}
+            {/* Added project status */}
             <p>Funding Amount: {investment.fundingAmount} ETH</p>
             <p>Your Reward: {investment.rewardAmount} ETH</p>
           </div>

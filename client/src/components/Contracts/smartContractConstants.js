@@ -177,6 +177,19 @@ export const abi = [
         type: "string",
       },
     ],
+    name: "donateAfterFunded",
+    outputs: [],
+    stateMutability: "payable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "mongoDbObjectId",
+        type: "string",
+      },
+    ],
     name: "donateProject",
     outputs: [],
     stateMutability: "payable",
@@ -390,6 +403,30 @@ export const abi = [
         name: "donors",
         type: "address[]",
       },
+      {
+        internalType: "string",
+        name: "status",
+        type: "string",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "mongoDbObjectId",
+        type: "string",
+      },
+    ],
+    name: "getProjectStatus",
+    outputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
     ],
     stateMutability: "view",
     type: "function",
@@ -397,6 +434,25 @@ export const abi = [
   {
     inputs: [],
     name: "getTotalCommissionAmount",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "investor",
+        type: "address",
+      },
+    ],
+    name: "getTotalRewardsByAddress",
     outputs: [
       {
         internalType: "uint256",
@@ -518,6 +574,11 @@ export const abi = [
         name: "rewardPercentage",
         type: "uint256",
       },
+      {
+        internalType: "string",
+        name: "status",
+        type: "string",
+      },
     ],
     stateMutability: "view",
     type: "function",
@@ -571,7 +632,7 @@ export const abi = [
     inputs: [
       {
         internalType: "string",
-        name: "mongoDbObjectId",
+        name: "mongoDbxObjectId",
         type: "string",
       },
     ],

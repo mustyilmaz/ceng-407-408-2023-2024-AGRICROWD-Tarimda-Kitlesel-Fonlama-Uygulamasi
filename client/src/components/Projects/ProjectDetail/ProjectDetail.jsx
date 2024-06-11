@@ -245,11 +245,26 @@ const ProjectDetail = () => {
 
       try {
         setIsDonating(true);
-        const transactionResponse = await contract.donateProject(pId, {
-          value: ethers.utils.parseEther(ethAmount),
-        });
-        await listenForTransactionMine(transactionResponse, provider);
-        alert("Successfully donated to the project!");
+        const projectDetails = await contract.getProjectDetails(pId);
+        const targetAmountETH = ethers.utils.formatEther(projectDetails[3]);
+
+        // Check if the target amount is reached
+        if (parseFloat(amountFundedETH) >= parseFloat(targetAmountETH)) {
+          const transactionResponse = await contract.donateAfterFunded(pId, {
+            value: ethers.utils.parseEther(ethAmount),
+          });
+          await listenForTransactionMine(transactionResponse, provider);
+          alert(
+            "Successfully donated to the project after reaching the target amount!"
+          );
+        } else {
+          // Target amount is not reached, proceed with regular donation
+          const transactionResponse = await contract.donateProject(pId, {
+            value: ethers.utils.parseEther(ethAmount),
+          });
+          await listenForTransactionMine(transactionResponse, provider);
+          alert("Successfully donated to the project!");
+        }
         setIsDonating(false);
       } catch (error) {
         console.error("Error donating to the project:", error);

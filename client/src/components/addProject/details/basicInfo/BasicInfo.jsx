@@ -385,7 +385,7 @@ const BasicInfoForm = () => {
               min='1'
             />
             <label className={styles.label}>
-              Target Amount (ETH) (1 ETH = 5000$)
+              Target Amount (ETH)
             </label>
           </div>
         </div>

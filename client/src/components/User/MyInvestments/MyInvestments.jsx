@@ -30,23 +30,13 @@ const MyInvestments = () => {
           investor
         );
 
-        // Fetch project statuses
-        const projectStatuses = await Promise.all(
-          investmentDetails[0].map((objectId) =>
-            contract.getProjectStatus(objectId)
-          )
-        );
-
         // Format the investment details
         const formattedInvestments = investmentDetails[0].map(
-          (objectId, index) => ({
-            objectId,
-            fundingAmount: ethers.utils.formatEther(
-              investmentDetails[1][index]
-            ),
-            rewardAmount: ethers.utils.formatEther(investmentDetails[2][index]),
-            projectName: investmentDetails[3][index],
-            status: projectStatuses[index],
+          (fundingAmount, index) => ({
+            fundingAmount: ethers.utils.formatEther(fundingAmount),
+            rewardAmount: ethers.utils.formatEther(investmentDetails[1][index]),
+            projectName: investmentDetails[2][index],
+            status: investmentDetails[3][index],
           })
         );
 

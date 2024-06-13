@@ -77,7 +77,7 @@ function DashboardforActiveProject() {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const contract = new ethers.Contract(contractAddress, abi, provider);
         const projectDetails = await contract.getProjectDetails(projectId);
-        setAmountFundedETH(ethers.utils.formatEther(projectDetails[4]));
+        setAmountFundedETH(ethers.utils.formatEther(projectDetails[7]));
       } catch (error) {
         console.error("Error fetching amount funded:", error);
       }
